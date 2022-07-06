@@ -164,6 +164,15 @@ const CompanyDetails = ({ selectedUser }) => {
                         </>
                     )
                 })}
+                {selectedUser?.companies?.length === 0 &&
+                    <>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>No Company Created</CardTitle>
+                            </CardHeader>
+                        </Card>
+                    </>
+                }
             </Fragment>
         </>
     )
