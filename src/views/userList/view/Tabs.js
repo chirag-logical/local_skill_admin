@@ -15,6 +15,7 @@ import BillingPlanTab from './BillingTab'
 import UserTimeline from './UserTimeline'
 import Notifications from './Notifications'
 import UserProjectsList from './UserProjectsList'
+import CompanyDetails from './CompanyDetails'
 
 const UserTabs = ({ active, toggleTab, selectedUser }) => {
   return (
@@ -64,7 +65,8 @@ const UserTabs = ({ active, toggleTab, selectedUser }) => {
           <InvoiceList />
         </TabPane>
         <TabPane tabId='2'>
-          <SecurityTab />
+          <CompanyDetails selectedUser={selectedUser} />
+          {/* <SecurityTab /> */}
         </TabPane>
         <TabPane tabId='3'>
           <BillingPlanTab />
