@@ -50,7 +50,7 @@ export default [
       },
       {
         id: 'invoiceApp',
-        title: 'Invoice',
+        title: 'Invoice 1',
         icon: <FileText />,
         children: [
           {

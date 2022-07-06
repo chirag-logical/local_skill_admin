@@ -12,6 +12,8 @@ import UiElementRoutes from './UiElements'
 import ExtensionsRoutes from './Extensions'
 import PageLayoutsRoutes from './PageLayouts'
 import AuthenticationRoutes from './Authentication'
+//NEW ROUTES USED
+import UserList from './UserLists'
 
 // ** Layouts
 import BlankLayout from '@layouts/BlankLayout'
@@ -49,7 +51,9 @@ const Routes = [
   ...PageLayoutsRoutes,
   ...FormRoutes,
   ...TablesRoutes,
-  ...ChartsRoutes
+  ...ChartsRoutes,
+  //NEW ROUTES USED
+  ...UserList
 ]
 
 const getRouteMeta = route => {
@@ -86,7 +90,7 @@ const MergeLayoutRoutes = (layout, defaultLayout) => {
             // eslint-disable-next-line multiline-ternary
             isObjEmpty(route.element.props) && isBlank === false
               ? // eslint-disable-next-line multiline-ternary
-                LayoutWrapper
+              LayoutWrapper
               : Fragment
 
           route.element = (

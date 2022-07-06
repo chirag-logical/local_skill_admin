@@ -12,6 +12,9 @@ import calendar from '@src/views/apps/calendar/store'
 import ecommerce from '@src/views/apps/ecommerce/store'
 import dataTables from '@src/views/tables/data-tables/store'
 import permissions from '@src/views/apps/roles-permissions/store'
+//API REDUCER USED FOR LOCAL SKILLS
+import userList from '@src/views/userList/store'
+
 
 const rootReducer = {
   auth,
@@ -26,7 +29,9 @@ const rootReducer = {
   calendar,
   ecommerce,
   dataTables,
-  permissions
+  permissions,
+  //API REDUCER USED FOR LOCAL SKILLS
+  userList
 }
 
 export default rootReducer
