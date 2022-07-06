@@ -2,7 +2,7 @@
 import { Fragment } from 'react'
 
 // ** Reactstrap Imports
-import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap'
+import { Card, CardHeader, CardTitle, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap'
 
 // ** Icons Imports
 import { User, Lock, Bookmark, Bell, Link } from 'react-feather'
@@ -54,13 +54,22 @@ const UserTabs = ({ active, toggleTab, selectedUser }) => {
       </Nav>
       <TabContent activeTab={active}>
         <TabPane tabId='1'>
-          {selectedUser.resume.map((list, index) => {
-            return (
-              <span key={index}>
-                <UserTimeline resume={list} selectedUser={selectedUser} />
-              </span>
-            )
-          })}
+          {selectedUser?.resume?.length !== 0 ? (
+            selectedUser.resume.map((list, index) => {
+              return (
+                <span key={index}>
+                  <UserTimeline resume={list} selectedUser={selectedUser} />
+                </span>
+              )
+            })) : (
+            <>
+              <Card>
+                <CardHeader>
+                  <CardTitle>No Resume Created</CardTitle>
+                </CardHeader>
+              </Card>
+            </>
+          )}
           <UserProjectsList />
           <InvoiceList />
         </TabPane>
