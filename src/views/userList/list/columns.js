@@ -15,16 +15,16 @@ import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2,
 import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 
 // ** Renders Client Columns
-const renderClient = row => {
-  if (row.avatar.length) {
-    return <Avatar className='me-1' img={row.avatar} width='32' height='32' />
+const renderClient = (row) => {
+  if (row?.profilePictureUrl !== null) {
+    return <Avatar className='me-1' img={row?.profilePictureUrl} width='32' height='32' />
   } else {
     return (
       <Avatar
         initials
         className='me-1'
-        color={row.avatarColor || 'light-primary'}
-        content={row.fullName || 'John Doe'}
+        color='light-primary'
+        content={row?.firstName}
       />
     )
   }
@@ -33,19 +33,19 @@ const renderClient = row => {
 // ** Renders Role Columns
 const renderRole = row => {
   const roleObj = {
-    subscriber: {
+    job_seeker: {
       class: 'text-primary',
       icon: User
     },
-    maintainer: {
+    employer: {
       class: 'text-success',
       icon: Database
     },
-    editor: {
+    freelancer: {
       class: 'text-info',
       icon: Edit2
     },
-    author: {
+    service: {
       class: 'text-warning',
       icon: Settings
     },
@@ -55,12 +55,12 @@ const renderRole = row => {
     }
   }
 
-  const Icon = roleObj[row.role] ? roleObj[row.role].icon : Edit2
+  const Icon = roleObj[row?.role?.name] ? roleObj[row?.role?.name]?.icon : Edit2
 
   return (
     <span className='text-truncate text-capitalize align-middle'>
-      <Icon size={18} className={`${roleObj[row.role] ? roleObj[row.role].class : ''} me-50`} />
-      {row.role}
+      <Icon size={18} className={`${roleObj[row?.role?.name] ? roleObj[row?.role?.name]?.class : ''} me-50`} />
+      {row?.role?.name}
     </span>
   )
 }
@@ -75,21 +75,21 @@ export const columns = [
   {
     name: 'User',
     sortable: true,
-    minWidth: '300px',
+    minWidth: '250px',
     sortField: 'fullName',
-    selector: row => row.fullName,
+    selector: row => row?.firstName,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
         {renderClient(row)}
         <div className='d-flex flex-column'>
           <Link
-            to={`/apps/user/view/${row.id}`}
+            to={`/apps/userList/view/${row?.id}`}
             className='user_name text-truncate text-body'
-            onClick={() => store.dispatch(getUser(row.id))}
+            onClick={() => store.dispatch(getUser(row?.id))}
           >
-            <span className='fw-bolder'>{row.fullName}</span>
+            <span className='fw-bolder'>{row?.firstName} {row?.lastName}</span>
           </Link>
-          <small className='text-truncate text-muted mb-0'>{row.email}</small>
+          <small className='text-truncate text-muted mb-0'>{row?.emailAddress}</small>
         </div>
       </div>
     )
@@ -99,34 +99,34 @@ export const columns = [
     sortable: true,
     minWidth: '172px',
     sortField: 'role',
-    selector: row => row.role,
-    cell: row => renderRole(row)
+    selector: (row) => row?.role,
+    cell: (row) => renderRole(row)
   },
   {
-    name: 'Plan',
+    name: 'Phone No',
     minWidth: '138px',
     sortable: true,
-    sortField: 'currentPlan',
-    selector: row => row.currentPlan,
-    cell: row => <span className='text-capitalize'>{row.currentPlan}</span>
+    sortField: 'mobilePhone',
+    selector: row => row?.mobilePhone,
+    cell: row => <span className='text-capitalize'>{row?.mobilePhone}</span>
   },
   {
-    name: 'Billing',
+    name: 'address',
     minWidth: '230px',
     sortable: true,
-    sortField: 'billing',
-    selector: row => row.billing,
-    cell: row => <span className='text-capitalize'>{row.billing}</span>
+    sortField: 'address',
+    selector: row => row?.address,
+    cell: row => <span className='text-capitalize'>{row?.address?.slice(0, 100)}</span>
   },
   {
     name: 'Status',
     minWidth: '138px',
     sortable: true,
     sortField: 'status',
-    selector: row => row.status,
+    selector: row => row?.isVerified,
     cell: row => (
-      <Badge className='text-capitalize' color={statusObj[row.status]} pill>
-        {row.status}
+      <Badge className='text-capitalize' color={statusObj[row?.isVerified === true ? 'active' : 'inactive']} pill>
+        {row?.isVerified === true ? 'active' : 'inactive'}
       </Badge>
     )
   },
@@ -143,8 +143,8 @@ export const columns = [
             <DropdownItem
               tag={Link}
               className='w-100'
-              to={`/apps/user/view/${row.id}`}
-              onClick={() => store.dispatch(getUser(row.id))}
+              to={`/apps/userList/view/${row?.id}`}
+              onClick={() => store.dispatch(getUser(row?.id))}
             >
               <FileText size={14} className='me-50' />
               <span className='align-middle'>Details</span>

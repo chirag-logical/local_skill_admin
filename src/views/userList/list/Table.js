@@ -167,7 +167,7 @@ const CustomHeader = ({ store, toggleSidebar, handlePerPage, rowsPerPage, handle
 const UsersList = () => {
   // ** Store Vars
   const dispatch = useDispatch()
-  const store = useSelector(state => state.users)
+  const store = useSelector(state => state.userList)
 
   // ** States
   const [sort, setSort] = useState('desc')
@@ -198,7 +198,7 @@ const UsersList = () => {
         currentPlan: currentPlan.value
       })
     )
-  }, [dispatch, store.data.length, sort, sortColumn, currentPage])
+  }, [dispatch, store?.data?.length, sort, sortColumn, currentPage])
 
   // ** User filter options
   const roleOptions = [
@@ -313,12 +313,12 @@ const UsersList = () => {
       return filters[k].length > 0
     })
 
-    if (store.data.length > 0) {
-      return store.data
-    } else if (store.data.length === 0 && isFiltered) {
+    if (store?.data?.length > 0) {
+      return store?.data
+    } else if (store?.data?.length === 0 && isFiltered) {
       return []
     } else {
-      return store.allData.slice(0, rowsPerPage)
+      return store?.allData
     }
   }
 

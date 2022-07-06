@@ -21,11 +21,11 @@ import { selectThemeColors } from '@utils'
 import '@styles/react/libs/react-select/_react-select.scss'
 
 const roleColors = {
-  editor: 'light-info',
-  admin: 'light-danger',
-  author: 'light-warning',
-  maintainer: 'light-success',
-  subscriber: 'light-primary'
+  job_seeker: 'light-info',
+  employer: 'light-danger',
+  freelancer: 'light-warning',
+  service: 'light-success',
+  admin: 'light-primary'
 }
 
 const statusColors = {
@@ -71,21 +71,21 @@ const UserInfoCard = ({ selectedUser }) => {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      username: selectedUser.username,
-      lastName: selectedUser.fullName.split(' ')[1],
-      firstName: selectedUser.fullName.split(' ')[0]
+      username: selectedUser?.username,
+      lastName: selectedUser?.fullName?.split(' ')[1],
+      firstName: selectedUser?.fullName?.split(' ')[0]
     }
   })
 
   // ** render user img
   const renderUserImg = () => {
-    if (selectedUser !== null && selectedUser.avatar.length) {
+    if (selectedUser !== null && selectedUser?.profilePictureUrl !== null) {
       return (
         <img
           height='110'
           width='110'
           alt='user-avatar'
-          src={selectedUser.avatar}
+          src={selectedUser?.profilePictureUrl}
           className='img-fluid rounded mt-3 mb-2'
         />
       )
@@ -93,9 +93,9 @@ const UserInfoCard = ({ selectedUser }) => {
       return (
         <Avatar
           initials
-          color={selectedUser.avatarColor || 'light-primary'}
+          color={'light-primary'}
           className='rounded mt-3 mb-2'
-          content={selectedUser.fullName}
+          content={selectedUser?.firstName}
           contentStyles={{
             borderRadius: 0,
             fontSize: 'calc(48px)',
@@ -127,9 +127,9 @@ const UserInfoCard = ({ selectedUser }) => {
 
   const handleReset = () => {
     reset({
-      username: selectedUser.username,
-      lastName: selectedUser.fullName.split(' ')[1],
-      firstName: selectedUser.fullName.split(' ')[0]
+      username: selectedUser?.username,
+      lastName: selectedUser?.fullName?.split(' ')[1],
+      firstName: selectedUser?.fullName?.split(' ')[0]
     })
   }
 
@@ -177,10 +177,10 @@ const UserInfoCard = ({ selectedUser }) => {
               {renderUserImg()}
               <div className='d-flex flex-column align-items-center text-center'>
                 <div className='user-info'>
-                  <h4>{selectedUser !== null ? selectedUser.fullName : 'Eleanor Aguilar'}</h4>
+                  <h4>{selectedUser?.firstName} {selectedUser?.lastName}</h4>
                   {selectedUser !== null ? (
-                    <Badge color={roleColors[selectedUser.role]} className='text-capitalize'>
-                      {selectedUser.role}
+                    <Badge color={roleColors[selectedUser?.role?.name]} className='text-capitalize'>
+                      {selectedUser?.role?.name}
                     </Badge>
                   ) : null}
                 </div>
@@ -213,37 +213,29 @@ const UserInfoCard = ({ selectedUser }) => {
               <ul className='list-unstyled'>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Username:</span>
-                  <span>{selectedUser.username}</span>
+                  <span>{selectedUser?.firstName} {selectedUser?.lastName}</span>
                 </li>
                 <li className='mb-75'>
-                  <span className='fw-bolder me-25'>Billing Email:</span>
-                  <span>{selectedUser.email}</span>
+                  <span className='fw-bolder me-25'>Email:</span>
+                  <span>{selectedUser?.emailAddress}</span>
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Status:</span>
-                  <Badge className='text-capitalize' color={statusColors[selectedUser.status]}>
-                    {selectedUser.status}
+                  <Badge className='text-capitalize' color={statusColors[selectedUser?.isVerified === true ? 'active' : 'inactive']}>
+                    {selectedUser?.isVerified === true ? 'active' : 'inactive'}
                   </Badge>
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Role:</span>
-                  <span className='text-capitalize'>{selectedUser.role}</span>
-                </li>
-                <li className='mb-75'>
-                  <span className='fw-bolder me-25'>Tax ID:</span>
-                  <span>Tax-{selectedUser.contact.substr(selectedUser.contact.length - 4)}</span>
+                  <span className='text-capitalize'>{selectedUser?.role?.name}</span>
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Contact:</span>
-                  <span>{selectedUser.contact}</span>
+                  <span>{selectedUser?.mobilePhone}</span>
                 </li>
                 <li className='mb-75'>
-                  <span className='fw-bolder me-25'>Language:</span>
-                  <span>English</span>
-                </li>
-                <li className='mb-75'>
-                  <span className='fw-bolder me-25'>Country:</span>
-                  <span>England</span>
+                  <span className='fw-bolder me-25'>Address:</span>
+                  <span>{selectedUser?.address}</span>
                 </li>
               </ul>
             ) : null}
@@ -277,7 +269,7 @@ const UserInfoCard = ({ selectedUser }) => {
                   id='firstName'
                   name='firstName'
                   render={({ field }) => (
-                    <Input {...field} id='firstName' placeholder='John' invalid={errors.firstName && true} />
+                    <Input {...field} id='firstName' placeholder='John' invalid={errors?.firstName && true} />
                   )}
                 />
               </Col>
@@ -291,7 +283,7 @@ const UserInfoCard = ({ selectedUser }) => {
                   id='lastName'
                   name='lastName'
                   render={({ field }) => (
-                    <Input {...field} id='lastName' placeholder='Doe' invalid={errors.lastName && true} />
+                    <Input {...field} id='lastName' placeholder='Doe' invalid={errors?.lastName && true} />
                   )}
                 />
               </Col>
@@ -305,7 +297,7 @@ const UserInfoCard = ({ selectedUser }) => {
                   id='username'
                   name='username'
                   render={({ field }) => (
-                    <Input {...field} id='username' placeholder='john.doe.007' invalid={errors.username && true} />
+                    <Input {...field} id='username' placeholder='john.doe.007' invalid={errors?.username && true} />
                   )}
                 />
               </Col>
@@ -331,7 +323,7 @@ const UserInfoCard = ({ selectedUser }) => {
                   classNamePrefix='select'
                   options={statusOptions}
                   theme={selectThemeColors}
-                  defaultValue={statusOptions[statusOptions.findIndex(i => i.value === selectedUser.status)]}
+                  defaultValue={statusOptions[statusOptions?.findIndex(i => i.value === selectedUser?.status)]}
                 />
               </Col>
               <Col md={6} xs={12}>
@@ -341,14 +333,14 @@ const UserInfoCard = ({ selectedUser }) => {
                 <Input
                   id='tax-id'
                   placeholder='Tax-1234'
-                  defaultValue={selectedUser.contact.substr(selectedUser.contact.length - 4)}
+                  defaultValue={selectedUser?.contact?.substr(selectedUser?.contact?.length - 4)}
                 />
               </Col>
               <Col md={6} xs={12}>
                 <Label className='form-label' for='contact'>
                   Contact
                 </Label>
-                <Input id='contact' defaultValue={selectedUser.contact} placeholder='+1 609 933 4422' />
+                <Input id='contact' defaultValue={selectedUser?.contact} placeholder='+1 609 933 4422' />
               </Col>
               <Col md={6} xs={12}>
                 <Label className='form-label' for='language'>

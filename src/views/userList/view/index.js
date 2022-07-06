@@ -19,7 +19,7 @@ import '@styles/react/apps/app-users.scss'
 
 const UserView = () => {
   // ** Store Vars
-  const store = useSelector(state => state.users)
+  const store = useSelector(state => state.userList)
   const dispatch = useDispatch()
 
   // ** Hooks
@@ -27,7 +27,7 @@ const UserView = () => {
 
   // ** Get suer on mount
   useEffect(() => {
-    dispatch(getUser(parseInt(id)))
+    dispatch(getUser(id))
   }, [dispatch])
 
   const [active, setActive] = useState('1')

@@ -4,39 +4,58 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import API from '../../../configs/api'
 const authData = JSON.parse(localStorage.getItem("userData"))
-const config = {
-  headers: {
-    Authorization: `Bearer ${authData.accessToken}`
-  },
-  params: {
-    include: "role",
-    sort: "updatedAt",
-    order: "desc",
-    page: 1,
-    limit: 10
-  }
-}
-console.log(config, '++++')
-
 
 export const getAllData = createAsyncThunk('appUserList/getAllData', async () => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authData.accessToken}`
+    },
+    params: {
+      include: "role",
+      sort: "updatedAt",
+      order: "desc",
+      page: 1,
+      limit: 10
+    }
+  }
   const response = await axios.get(`${API}users`, config)
-  console.log(response, '++++')
   return response.data
 })
 
-export const getData = createAsyncThunk('appUserList/getData', async params => {
-  const response = await axios.get('/api/users/list/data', params)
+export const getData = createAsyncThunk('appUserList/getData', async (params) => {
+  console.log(params)
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authData.accessToken}`
+    },
+    params: {
+      include: "role",
+      sort: "updatedAt",
+      order: params.sort,
+      page: params.page,
+      limit: params.perPage
+    }
+  }
+  const response = await axios.get(`${API}users`, config)
+  console.log(response)
   return {
     params,
-    data: response.data.users,
-    totalPages: response.data.total
+    data: response.data.data,
+    totalPages: response.data.meta.page
   }
 })
 
-export const getUser = createAsyncThunk('appUserList/getUser', async id => {
-  const response = await axios.get('/api/users/user', { id })
-  return response.data.user
+export const getUser = createAsyncThunk('appUserList/getUser', async (id) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authData.accessToken}`
+    },
+    params: {
+      include: "role,companies,companies.category,companies.vacancies,resume,resume.experience,resume.skills,resume.education,resume.achivements,resumeAppliedInCompanies,resumeAppliedInCompanies.vacancy"
+    }
+  }
+  const response = await axios.get(`${API}users/${id}`, config)
+  return response.data
 })
 
 export const addUser = createAsyncThunk('appUserList/addUser', async (user, { dispatch, getState }) => {
