@@ -16,7 +16,7 @@ import UserTimeline from './UserTimeline'
 import Notifications from './Notifications'
 import UserProjectsList from './UserProjectsList'
 
-const UserTabs = ({ active, toggleTab }) => {
+const UserTabs = ({ active, toggleTab, selectedUser }) => {
   return (
     <Fragment>
       <Nav pills className='mb-2'>
@@ -29,13 +29,13 @@ const UserTabs = ({ active, toggleTab }) => {
         <NavItem>
           <NavLink active={active === '2'} onClick={() => toggleTab('2')}>
             <Lock className='font-medium-3 me-50' />
-            <span className='fw-bold'>Security</span>
+            <span className='fw-bold'>Company</span>
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink active={active === '3'} onClick={() => toggleTab('3')}>
             <Bookmark className='font-medium-3 me-50' />
-            <span className='fw-bold'>Billing & Plans</span>
+            <span className='fw-bold'>Application</span>
           </NavLink>
         </NavItem>
         <NavItem>
@@ -53,8 +53,14 @@ const UserTabs = ({ active, toggleTab }) => {
       </Nav>
       <TabContent activeTab={active}>
         <TabPane tabId='1'>
+          {selectedUser.resume.map((list, index) => {
+            return (
+              <span key={index}>
+                <UserTimeline resume={list} selectedUser={selectedUser} />
+              </span>
+            )
+          })}
           <UserProjectsList />
-          <UserTimeline />
           <InvoiceList />
         </TabPane>
         <TabPane tabId='2'>
