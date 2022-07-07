@@ -181,7 +181,7 @@ const ToastHeaderIcons = () => {
       <Col md='6' sm='12'>
         <Toast>
           <ToastHeader close={close} icon={<Spinner size='sm' color='primary' />}>
-            Vuexy
+            Local Skills
           </ToastHeader>
           <ToastBody>This is a toast with a spinner — check it out!</ToastBody>
         </Toast>
@@ -189,7 +189,7 @@ const ToastHeaderIcons = () => {
 
       <Col md='6' sm='12'>
         <Toast>
-        <ToastHeader close={close} icon={logo}>Vuexy</ToastHeader>
+        <ToastHeader close={close} icon={logo}>Local Skills</ToastHeader>
           <ToastBody>This is a toast with a logo — check it out!</ToastBody>
         </Toast>
       </Col>

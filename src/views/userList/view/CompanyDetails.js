@@ -5,7 +5,6 @@ import Avatar from '@components/avatar'
 import { Briefcase, Check } from 'react-feather'
 
 const CompanyDetails = ({ selectedUser }) => {
-    console.log(selectedUser.companies)
 
     // ** render user img
     const renderUserImg = (list) => {

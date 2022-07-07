@@ -12,7 +12,6 @@ import moment from 'moment'
 
 
 const UserTimeline = ({ resume, selectedUser }) => {
-  console.log(resume)
   // ** Timeline Data
   const data = [
     {

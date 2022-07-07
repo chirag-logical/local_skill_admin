@@ -5,16 +5,11 @@ import { Fragment } from 'react'
 import { Card, CardHeader, CardTitle, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap'
 
 // ** Icons Imports
-import { User, Lock, Bookmark, Bell, Link } from 'react-feather'
+import { User, Lock, Bookmark, Aperture } from 'react-feather'
 
 // ** User Components
-import InvoiceList from './InvoiceList'
-import SecurityTab from './SecurityTab'
-import Connections from './Connections'
-import BillingPlanTab from './BillingTab'
+import Application from './Application'
 import UserTimeline from './UserTimeline'
-import Notifications from './Notifications'
-import UserProjectsList from './UserProjectsList'
 import CompanyDetails from './CompanyDetails'
 
 const UserTabs = ({ active, toggleTab, selectedUser }) => {
@@ -29,7 +24,7 @@ const UserTabs = ({ active, toggleTab, selectedUser }) => {
         </NavItem>
         <NavItem>
           <NavLink active={active === '2'} onClick={() => toggleTab('2')}>
-            <Lock className='font-medium-3 me-50' />
+            <Aperture className='font-medium-3 me-50' />
             <span className='fw-bold'>Company</span>
           </NavLink>
         </NavItem>
@@ -37,18 +32,6 @@ const UserTabs = ({ active, toggleTab, selectedUser }) => {
           <NavLink active={active === '3'} onClick={() => toggleTab('3')}>
             <Bookmark className='font-medium-3 me-50' />
             <span className='fw-bold'>Application</span>
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink active={active === '4'} onClick={() => toggleTab('4')}>
-            <Bell className='font-medium-3 me-50' />
-            <span className='fw-bold'>Notifications</span>
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink active={active === '5'} onClick={() => toggleTab('5')}>
-            <Link className='font-medium-3 me-50' />
-            <span className='fw-bold'>Connections</span>
           </NavLink>
         </NavItem>
       </Nav>
@@ -70,21 +53,14 @@ const UserTabs = ({ active, toggleTab, selectedUser }) => {
               </Card>
             </>
           )}
-          <UserProjectsList />
-          <InvoiceList />
+          {/* <UserProjectsList />
+          <InvoiceList /> */}
         </TabPane>
         <TabPane tabId='2'>
           <CompanyDetails selectedUser={selectedUser} />
-          {/* <SecurityTab /> */}
         </TabPane>
         <TabPane tabId='3'>
-          <BillingPlanTab />
-        </TabPane>
-        <TabPane tabId='4'>
-          <Notifications />
-        </TabPane>
-        <TabPane tabId='5'>
-          <Connections />
+          <Application selectedUser={selectedUser} />
         </TabPane>
       </TabContent>
     </Fragment>

@@ -95,7 +95,7 @@ const NavbarSearch = () => {
             filterKey='title'
             filterHeaderKey='groupTitle'
             grouped={true}
-            placeholder='Explore Vuexy...'
+            placeholder='Explore Local Skills...'
             autoFocus={true}
             onSuggestionItemClick={handleSuggestionItemClick}
             externalClick={handleExternalClick}
