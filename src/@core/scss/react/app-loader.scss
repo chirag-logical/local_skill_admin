@@ -50,11 +50,10 @@
     }
   }
 }
-// .fallback-logo {
-//   position: absolute;
-//   left: calc(50% - 45px);
-//   top: 40%;
-// }
+.fallback-logo {
+  height: 50px;
+  width: 50px;
+}
 
 @keyframes rotate {
   0% {
