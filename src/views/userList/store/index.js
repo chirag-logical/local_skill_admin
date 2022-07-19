@@ -19,6 +19,7 @@ export const getAllData = createAsyncThunk('appUserList/getAllData', async () =>
     }
   }
   const response = await axios.get(`${API}users`, config)
+  console.log(response, 'responseresponseresponse')
   return response.data
 })
 

@@ -31,6 +31,7 @@ import { Row, Col, Form, Input, Label, Button, CardText, CardTitle } from 'react
 import '@styles/react/pages/page-authentication.scss'
 import axios from 'axios'
 import API from '../../../configs/api'
+import { getAllData } from '../../userList/store'
 
 const ToastContent = ({ t, name, role }) => {
   return (
@@ -62,9 +63,10 @@ const Login = () => {
     formState: { errors }
   } = useForm()
   const illustration = skin === 'dark' ? 'login-v2-dark.svg' : 'login-v2.svg',
-    source = require(`@src/assets/images/pages/${illustration}`).default
-
+  source = require(`@src/assets/images/pages/${illustration}`).default
+  
   const onSubmit = (data) => {
+    dispatch(getAllData())
     if (Object.values(data).every(field => field.length > 0)) {
       const body = {
         password: data.password,
