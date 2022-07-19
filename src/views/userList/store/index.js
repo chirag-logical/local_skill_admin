@@ -19,26 +19,24 @@ export const getAllData = createAsyncThunk('appUserList/getAllData', async () =>
     }
   }
   const response = await axios.get(`${API}users`, config)
-  console.log(response, 'responseresponseresponse')
   return response.data
 })
 
 export const getData = createAsyncThunk('appUserList/getData', async (params) => {
-  console.log(params)
   const config = {
     headers: {
       Authorization: `Bearer ${authData.accessToken}`
     },
     params: {
-      include: "role",
+      include: "role,companies,companies.category,companies.vacancies,resume,resume.experience,resume.skills,resume.education,resume.achivements,resumeAppliedInCompanies,resumeAppliedInCompanies.vacancy",
       sort: "updatedAt",
       order: params.sort,
       page: params.page,
-      limit: params.perPage
+      limit: params.perPage,
+      search: params.q
     }
   }
   const response = await axios.get(`${API}users`, config)
-  console.log(response)
   return {
     params,
     data: response.data.data,

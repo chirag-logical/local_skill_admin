@@ -4,7 +4,7 @@
 const themeConfig = {
   app: {
     appName: 'Local Skills',
-    appLogoImage: require('@src/assets/images/logo/logo.svg').default
+    appLogoImage: require('@src/assets/images/logo/localskillsquare.png').default
   },
   layout: {
     isRTL: false,

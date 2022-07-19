@@ -6,10 +6,10 @@ import Avatar from '@components/avatar'
 
 // ** Store & Actions
 import { store } from '@store/store'
-import { getUser, deleteUser } from '../store'
+import { getUser } from '../store'
 
 // ** Icons Imports
-import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2, Archive } from 'react-feather'
+import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText } from 'react-feather'
 
 // ** Reactstrap Imports
 import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
@@ -74,7 +74,7 @@ const statusObj = {
 export const columns = [
   {
     name: 'User',
-    sortable: true,
+    sortable: false,
     minWidth: '250px',
     sortField: 'fullName',
     selector: row => row?.firstName,
@@ -96,7 +96,7 @@ export const columns = [
   },
   {
     name: 'Role',
-    sortable: true,
+    sortable: false,
     minWidth: '172px',
     sortField: 'role',
     selector: (row) => row?.role,
@@ -105,7 +105,7 @@ export const columns = [
   {
     name: 'Phone No',
     minWidth: '138px',
-    sortable: true,
+    sortable: false,
     sortField: 'mobilePhone',
     selector: row => row?.mobilePhone,
     cell: row => <span className='text-capitalize'>{row?.mobilePhone}</span>
@@ -113,7 +113,7 @@ export const columns = [
   {
     name: 'address',
     minWidth: '230px',
-    sortable: true,
+    sortable: false,
     sortField: 'address',
     selector: row => row?.address,
     cell: row => <span className='text-capitalize'>{row?.address?.slice(0, 100)}</span>
@@ -121,7 +121,7 @@ export const columns = [
   {
     name: 'Status',
     minWidth: '138px',
-    sortable: true,
+    sortable: false,
     sortField: 'status',
     selector: row => row?.isVerified,
     cell: row => (
@@ -149,11 +149,11 @@ export const columns = [
               <FileText size={14} className='me-50' />
               <span className='align-middle'>Details</span>
             </DropdownItem>
-            <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
+            {/* <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
               <Archive size={14} className='me-50' />
               <span className='align-middle'>Edit</span>
-            </DropdownItem>
-            <DropdownItem
+            </DropdownItem> */}
+            {/* <DropdownItem
               tag='a'
               href='/'
               className='w-100'
@@ -164,7 +164,7 @@ export const columns = [
             >
               <Trash2 size={14} className='me-50' />
               <span className='align-middle'>Delete</span>
-            </DropdownItem>
+            </DropdownItem> */}
           </DropdownMenu>
         </UncontrolledDropdown>
       </div>
